@@ -36,8 +36,8 @@ spec:
                   name: app-secret
                   key: db-pass
       volumes:
-      - name: appdb-vol
-        persistentVolumeClaim:
-          claimName: vol-k8s-pvc
-    nodeSelector:
-      task: testing
+        - name: appdb-vol
+          persistentVolumeClaim:
+            claimName: vol-k8s-pvc
+      nodeSelector:
+          task: testing
