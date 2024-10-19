@@ -15,7 +15,7 @@ spec:
         app: appdb
     spec:
       containers:
-        - busybox:
+        - name: busybox
           image: busybox:latest
           args: ["rm", "-rf", "/var/lib/mysql/lost+found"]
           volumeMounts:
