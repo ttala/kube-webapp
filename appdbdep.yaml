@@ -8,25 +8,36 @@ spec:
   selector:
     matchLabels:
       app: appdb
-  replicas: 1
+  replicas: 2
   template:
     metadata:
       labels:
         app: appdb
     spec:
       containers:
+        - busibox:
+          image: busybox:latest
+          args: ["rm", "-rf", "/var/lib/mysql/lost+found"]
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: appdb-vol
         - name: appdb
           image: vprofile/vprofiledb:V1
           ports:
             - name: appdb-port
               containerPort: 3306
+          volumeMounts:
+             - mountPath: /var/lib/mysql
+               name: appdb-vol
           env:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: app-secret
                   key: db-pass
-    volumes:
-      - name: appdb-data
+      volumes:
+      - name: appdb-vol
+        persistentVolumeClaim:
+          claimName: vol-k8s-pvc
     nodeSelector:
       task: testing
