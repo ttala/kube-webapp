@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appdb
+  labels:
+    app: appdb
+spec:
+  selector:
+    matchLabels:
+      app: appdb
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: appdb
+    spec:
+      containers:
+        - name: appdb
+          image: vprofile/vprofiledb:V1
+          ports:
+            - name: appdb-port
+              containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: db-pass
+    volumes:
+      - name: appdb-data
+    nodeSelector:
+      task: testing
