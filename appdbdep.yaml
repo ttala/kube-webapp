@@ -14,13 +14,14 @@ spec:
       labels:
         app: appdb
     spec:
-      containers:
+      initcontainers:
         - name: busybox
-          image: busybox:latest
+          image: busybox:1.28
           args: ["rm", "-rf", "/var/lib/mysql/lost+found"]
           volumeMounts:
             - mountPath: /var/lib/mysql
               name: appdb-vol
+      containers:
         - name: appdb
           image: vprofile/vprofiledb:V1
           ports:
