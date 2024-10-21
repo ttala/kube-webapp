@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appdep
+  labels:
+    app: appdep
+spec:
+  selector:
+    matchLabels:
+      app: appdep
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: appdep
+    spec:
+      containers:
+        - name: appdep
+          image: vprofile/vprofileapp:V1
+          ports:
+            - containerPort: 8080
+              name: appdp-port
+      initContainers:
+        - name: init-db
+          image: busybox:1.28
+          command: ['sh', '-c', 'until nslookup vprodb; do echo waiting for the database service...; sleep 4; done;']
+        - name: init-memcache
+          image: busybox
+          command: ['sh', '-c', 'until nslookup vprocache01; do echo waiting for the memcache service...; sleep 4; done;']
