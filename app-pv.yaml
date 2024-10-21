@@ -4,11 +4,11 @@ metadata:
   name: vol-k8s-pv
 spec:
   capacity:
-    storage: 5Gi
+    storage: 3Gi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
-  storageClassName: sbs-default
+  storageClassName: scw-bssd
   csi:
     driver: csi.scaleway.com
     volumeHandle: fr-par-1/cb95e40a-464f-4c3d-a6a9-fb07138b6568
