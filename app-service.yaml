@@ -8,5 +8,5 @@ spec:
       targetPort: app-port
       protocol: TCP
   selector:
-    app: webapp
-  type: loadBalancer
+    app: appdep
+  type: LoadBalancer
