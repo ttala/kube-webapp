@@ -14,7 +14,7 @@ spec:
       labels:
         app: appdb
     spec:
-      initcontainers:
+      initContainers:
         - name: busybox
           image: busybox:1.28
           args: ["rm", "-rf", "/var/lib/mysql/lost+found"]
